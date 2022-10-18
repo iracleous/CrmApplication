@@ -11,9 +11,9 @@ namespace CrmApplication.Service
     public class LibraryService : ILibraryService
     {
 
-        private Repository<Book, int> _bookRepo;
-        private Repository<Member, int> _memberRepo;
-        private Repository<Lending, int> _lendingRepo;
+        private readonly Repository<Book, int> _bookRepo;
+        private readonly Repository<Member, int> _memberRepo;
+        private readonly Repository<Lending, int> _lendingRepo;
 
         public LibraryService(Repository<Book, int> bookRepo, Repository<Member, int> memberRepo,
             Repository<Lending, int> lendingRepo)
@@ -49,9 +49,13 @@ namespace CrmApplication.Service
         {
             var member = _memberRepo.Retreive(memberId);
             var book = _bookRepo.Retreive(bookId);
-            book.IsAvailable = false;
-            var lending = new Lending { Member=member, Book=book , DateTime= DateTime.Now};
-            _lendingRepo.Create(lending);
+            if (book != null)
+            {
+                book.IsAvailable = false;
+                var lending = new Lending { Member=member, Book=book , DateTime= DateTime.Now};
+                _lendingRepo.Create(lending);
+            }
+               
 
         }
 

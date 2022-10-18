@@ -8,8 +8,8 @@ namespace CrmApplication.Model
 {
     internal class ResponseData<T>
     {
-        public T Data { set; get; }
-        public int ReturnStatus{set; get;}
-        public string Description { set; get; }
+        public T? Data { set; get; }
+        public int? ReturnStatus{set; get;}
+        public string? Description { set; get; }
     }
 }
